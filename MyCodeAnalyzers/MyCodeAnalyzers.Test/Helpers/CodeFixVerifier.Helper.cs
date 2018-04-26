@@ -1,10 +1,11 @@
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.Formatting;
+using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.Simplification;
-using System.Collections.Generic;
+
 using System.Linq;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace TestHelper
 {
@@ -12,7 +13,7 @@ namespace TestHelper
     /// Diagnostic Producer class with extra methods dealing with applying codefixes
     /// All methods are static
     /// </summary>
-    public abstract partial class CodeFixVerifier : DiagnosticVerifier
+    public abstract partial class CodeFixVerifier : MyCodeAnalyzers.Test.Helpers.DiagnosticVerifier
     {
         /// <summary>
         /// Apply the inputted CodeAction to the inputted document.

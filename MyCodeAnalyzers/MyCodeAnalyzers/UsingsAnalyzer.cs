@@ -1,17 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Threading;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+
+using System.Linq;
+using System.Collections.Immutable;
 
 namespace MyCodeAnalyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class MyCodeAnalyzersAnalyzer : DiagnosticAnalyzer
+    public class UsingsAnalyzer : DiagnosticAnalyzer
     {
         public const string DiagnosticId = "MyCodeAnalyzers";
 
@@ -30,21 +27,26 @@ namespace MyCodeAnalyzers
         {
             // TODO: Consider registering other actions that act on syntax instead of or in addition to symbols
             // See https://github.com/dotnet/roslyn/blob/master/docs/analyzers/Analyzer%20Actions%20Semantics.md for more information
-            context.RegisterSymbolAction(AnalyzeSymbol, SymbolKind.NamedType);
+            context.RegisterSyntaxTreeAction(AnalyzeTree);
         }
 
-        private static void AnalyzeSymbol(SymbolAnalysisContext context)
+        private void AnalyzeTree(SyntaxTreeAnalysisContext obj)
         {
-            // TODO: Replace the following code with your own analysis, generating Diagnostic objects for any issues you find
-            var namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
-
-            // Find just those named type symbols with names containing lowercase letters.
-            if (namedTypeSymbol.Name.ToCharArray().Any(char.IsLower))
+            var descendantNodes = obj.Tree.GetRoot().DescendantNodes();
+            var usings = descendantNodes.OfType<UsingDirectiveSyntax>().ToList();
+            if (usings.Count == 0)
+                return;
+            var sortedUsings = usings.OrderBy(o => new string(o.Name.ToString().TakeWhile(c => c != '.').ToArray()))
+                                        .ThenBy(o => o.Name.ToString().Length)
+                                        .ToList();
+            for (var index = 0; index < usings.Count; index++)
             {
-                // For all such symbols, produce a diagnostic.
-                var diagnostic = Diagnostic.Create(Rule, namedTypeSymbol.Locations[0], namedTypeSymbol.Name);
-
-                context.ReportDiagnostic(diagnostic);
+                var usingDirectiveSyntax = usings[index];
+                if (usingDirectiveSyntax.ToString() != sortedUsings[index].ToString())
+                {
+                    var diagnostic = Diagnostic.Create(Rule, sortedUsings[index].GetLocation(), sortedUsings);
+                    obj.ReportDiagnostic(diagnostic);
+                }
             }
         }
     }

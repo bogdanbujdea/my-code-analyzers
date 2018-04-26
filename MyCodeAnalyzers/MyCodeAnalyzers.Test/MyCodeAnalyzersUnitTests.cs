@@ -2,9 +2,12 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using TestHelper;
+
 using MyCodeAnalyzers;
+
+using System;
+
+using TestHelper;
 
 namespace MyCodeAnalyzers.Test
 {
@@ -71,12 +74,12 @@ namespace MyCodeAnalyzers.Test
 
         protected override CodeFixProvider GetCSharpCodeFixProvider()
         {
-            return new MyCodeAnalyzersCodeFixProvider();
+            return new UsingsAnalyzerCodeFixProvider();
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
-            return new MyCodeAnalyzersAnalyzer();
+            return new UsingsAnalyzer();
         }
     }
 }
