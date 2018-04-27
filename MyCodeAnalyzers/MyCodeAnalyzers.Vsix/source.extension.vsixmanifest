@@ -2,8 +2,8 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
         <Identity Id="MyCodeAnalyzers.661e0454-d5b8-4252-b222-9c94d795094c" Version="1.0" Language="en-US" Publisher="thewindev"/>
-        <DisplayName>Usings formatter</DisplayName>
-        <Description xml:space="preserve">Custom code analyzers made with Roslyn.
+        <DisplayName>thewindev's code analyzers</DisplayName>
+        <Description xml:space="preserve">Custom code analyzers made with Roslyn by thewindev
 Currently it has a usings formatter that sorts them by assembly and lenght.</Description>
         <MoreInfo>https://github.com/thewindev/my-code-analyzers</MoreInfo>
         <License>https://github.com/thewindev/my-code-analyzers/blob/master/LICENSE</License>
