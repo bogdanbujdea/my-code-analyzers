@@ -71,7 +71,7 @@ namespace MyCodeAnalyzers {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type name &apos;{0}&apos; contains usings that are not ordered correctly.
+        ///   Looks up a localized string similar to &apos;{0}&apos; contains usings that are not ordered correctly.
         /// </summary>
         internal static string AnalyzerMessageFormat {
             get {
@@ -80,7 +80,7 @@ namespace MyCodeAnalyzers {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type name contains usings that are not ordered correctly.
+        ///   Looks up a localized string similar to File contains usings that are not ordered correctly.
         /// </summary>
         internal static string AnalyzerTitle {
             get {

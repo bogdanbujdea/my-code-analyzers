@@ -1,6 +1,5 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Rename;
 using Microsoft.CodeAnalysis.Editing;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -25,7 +24,6 @@ namespace MyCodeAnalyzers
 
         public sealed override FixAllProvider GetFixAllProvider()
         {
-            // See https://github.com/dotnet/roslyn/blob/master/docs/analyzers/FixAllProvider.md for more information on Fix All Providers
             return WellKnownFixAllProviders.BatchFixer;
         }
 
@@ -59,7 +57,7 @@ namespace MyCodeAnalyzers
                     {
                         var currentNamespace = GetAssemblyNameFromNamespace(orderedUsings[index]);
                         var lastNamespace = GetAssemblyNameFromNamespace(orderedUsings[index - 1]);
-                        if (currentNamespace != lastNamespace)
+                        if (currentNamespace != lastNamespace) //add a new line between usings from different assemblies
                         {
                             usingDirectiveSyntax =
                                 usingDirectiveSyntax.WithLeadingTrivia(
@@ -81,6 +79,5 @@ namespace MyCodeAnalyzers
         {
             return new string(usingDirective.ToString().Split(' ')[1].TakeWhile(c => c != '.').ToArray()).Trim(';');
         }
-
     }
 }

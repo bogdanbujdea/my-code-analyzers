@@ -122,11 +122,11 @@
     <comment>An optional longer localizable description of the diagnostic.</comment>
   </data>
   <data name="AnalyzerMessageFormat" xml:space="preserve">
-    <value>Type name '{0}' contains usings that are not ordered correctly</value>
+    <value>'{0}' contains usings that are not ordered correctly</value>
     <comment>The format-able message the diagnostic displays.</comment>
   </data>
   <data name="AnalyzerTitle" xml:space="preserve">
-    <value>Type name contains usings that are not ordered correctly</value>
+    <value>File contains usings that are not ordered correctly</value>
     <comment>The title of the diagnostic.</comment>
   </data>
 </root>
